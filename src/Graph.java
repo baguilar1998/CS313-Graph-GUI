@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 
 public class Graph {
@@ -89,32 +88,35 @@ public class Graph {
 	}
 	
 	public void removeVertex(Vertex v) {
-		Iterator it = currentGraph.entrySet().iterator();
+		Iterator<?> it = currentGraph.entrySet().iterator();
 		while(it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
 			if(pair.getKey().equals(v)) {
 				it.remove();
-				// IMPLEMENT REMOVE EDGES FROM RELATED VERTICES
 				currentGraph.remove(v);
+				break;
+			}
+		}
+		
+		removeEdge(v);
+	}
+	
+	private void removeEdge(Vertex c) {
+		for(Vertex v : currentGraph.keySet()) {
+			HashSet<Edge> ee = currentGraph.get(v);
+			Iterator<?> it = ee.iterator();
+			while(it.hasNext()) {
+				Edge e = (Edge) it.next();
+				if(e.getEndpt2().equals(c)) {
+					it.remove();
+					ee.remove(e);
+					break;
+				}
 			}
 			
 		}
 	}
-	/*
-	 * Gets an edge from the graph
-	 * @param head the beginning vertex
-	 * @param tail the ending vertex
-	 * @return e (an edge) if that edge exists
-	 * @return null otherwise
-	 */
-	public Edge getEdge(Vertex head, Vertex tail) {
-		HashSet<Edge> edges = currentGraph.get(head);
-		for(Edge e: edges) {
-			if(e.getEndpt2().equals(tail))return e;
-		}
-		return null;
-	}
-	
+
 	/*
 	 * Checks to see if an edge exists 
 	 * @param head the beginning vertex
@@ -123,8 +125,12 @@ public class Graph {
 	 * @return false otherwise
 	 */
 	public boolean edgeExists(Vertex head, Vertex tail) {
-		Edge exist = getEdge(head,tail);
-		if(exist !=null)return true;
+		for(Edge e: currentGraph.get(head)) {
+			if(e.getEndpt2().equals(tail)) return true;
+		}
+		for(Edge e: currentGraph.get(tail)) {
+			if(e.getEndpt2().equals(head)) return true;
+		}
 		return false;
 	}
 	

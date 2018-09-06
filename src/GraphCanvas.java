@@ -263,9 +263,6 @@ public class GraphCanvas extends JPanel implements MouseListener{
           		g2.setColor(e.getEdgeColor());
              	g2.setStroke(new BasicStroke(5));
              	g2.draw(line);
-             	System.out.println(e.getVisualEdge().getBounds2D());
-             	
-
         	}
         }
         
