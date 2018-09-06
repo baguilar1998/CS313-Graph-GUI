@@ -1,12 +1,15 @@
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 
 public class Graph {
 	
 	//Instance Variables for a Graph
-	private static HashMap<Vertex,HashSet<Vertex>> adjacenyList;
-	private static HashSet<Edge> edges;
+	private static HashMap<Vertex,HashSet<Edge>> currentGraph;
 	private static int numOfEdges,numOfVertexes;
 	
 	/*
@@ -14,8 +17,7 @@ public class Graph {
 	 * empty Graph
 	 */
 	public Graph() {
-		adjacenyList = new HashMap<Vertex,HashSet<Vertex>>();
-		edges = new HashSet<Edge>();
+		currentGraph = new HashMap<Vertex,HashSet<Edge>>();
 		numOfEdges = 0;
 		numOfVertexes = 0;
 	}
@@ -25,21 +27,10 @@ public class Graph {
 	 * @param v a vertex
 	 */
 	public void addVertex(Vertex v) {
-		if(!adjacenyList.containsKey(v)) {
-			adjacenyList.put(v, new HashSet<Vertex>());
+		if(!currentGraph.containsKey(v)) {
+			currentGraph.put(v, new HashSet<Edge>());
 			++numOfVertexes;
 		}
-	}
-	
-	public void removeVertex(Vertex v) {
-		for(Edge e: edges) {
-			if(e.getEndpt1().equals(v) || e.getEndpt2().equals(v)) {
-				edges.remove(e);
-				--numOfEdges;
-			}
-		}
-		adjacenyList.remove(v);
-		--numOfVertexes;
 	}
 	
 	/*
@@ -50,9 +41,8 @@ public class Graph {
 	 */
 	public void addEdge(Vertex v1, Vertex v2) {
 		if(edgeExists(v1,v2))return;
-		adjacenyList.get(v1).add(v2);
-		adjacenyList.get(v2).add(v1);
-		edges.add(new Edge(v1,v2));
+		currentGraph.get(v1).add(new Edge(v1,v2));
+		currentGraph.get(v2).add(new Edge(v2,v1));
 		numOfEdges += 2;
 	}
 	
@@ -77,7 +67,7 @@ public class Graph {
 	 * @return null if the user did not click on the vertex from the graph
 	 */
 	public Vertex findVertex(Point userClick) {
-		for(Vertex v: adjacenyList.keySet()) {
+		for(Vertex v: currentGraph.keySet()) {
 			
 			if(v.getVisualVertex().contains(userClick)) {
 				return v;
@@ -92,17 +82,22 @@ public class Graph {
 	 * @param vertexNumber the vertex that the user wants
 	 */
 	public Vertex getVertex(int vertexNumber) {
-		for(Vertex v: adjacenyList.keySet()) {
+		for(Vertex v: currentGraph.keySet()) {
 			if(v.getVertexID()==vertexNumber)return v;
 		}
 		return null;
 	}
 	
-	public void findEdge(Point userClick) {
-		for(Edge e: edges) {
-			if(e.getVisualEdge().contains(userClick)) {
-				System.out.println("You clicked an edge");
+	public void removeVertex(Vertex v) {
+		Iterator it = currentGraph.entrySet().iterator();
+		while(it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			if(pair.getKey().equals(v)) {
+				it.remove();
+				// IMPLEMENT REMOVE EDGES FROM RELATED VERTICES
+				currentGraph.remove(v);
 			}
+			
 		}
 	}
 	/*
@@ -113,9 +108,9 @@ public class Graph {
 	 * @return null otherwise
 	 */
 	public Edge getEdge(Vertex head, Vertex tail) {
+		HashSet<Edge> edges = currentGraph.get(head);
 		for(Edge e: edges) {
-			if(e.getEndpt1().equals(head) && e.getEndpt2().equals(tail))return e;
-			if(e.getEndpt1().equals(tail) && e.getEndpt2().equals(head))return e;
+			if(e.getEndpt2().equals(tail))return e;
 		}
 		return null;
 	}
@@ -133,12 +128,29 @@ public class Graph {
 		return false;
 	}
 	
+	public Edge findEdge(Point userClick) {
+		for(Vertex v: currentGraph.keySet()) {
+			for(Edge e: currentGraph.get(v)) {
+				if(e.getVisualEdge().getBounds().contains(userClick)) {
+					return e;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public void removeEdge(Edge e) {
+		for(Vertex v: currentGraph.keySet()) {
+			HashSet<Edge> edges = currentGraph.get(v);
+			if(edges.contains(e)) edges.remove(e);
+		}
+	}
 	/*
 	 * @return all the Vertices of the graph
 	 */
 	public HashSet<Vertex> getAllVertexes(){
 		HashSet<Vertex> vertexes = new HashSet<Vertex>();
-		for(Vertex v: adjacenyList.keySet()) vertexes.add(v);
+		for(Vertex v: currentGraph.keySet()) vertexes.add(v);
 		return vertexes;
 	}
 	
@@ -148,12 +160,7 @@ public class Graph {
 	 * @return all the edges that the vertex is connected to
 	 */
 	public HashSet<Edge> getVertexEdges(Vertex vertex){
-		HashSet<Edge> temp = new HashSet<Edge>();
-		for(Edge e: edges) {
-			if(e.getEndpt1().equals(vertex) || e.getEndpt2().equals(vertex))temp.add(e);
-		}
-		return temp;
+		return currentGraph.get(vertex);
 	}
-	
-
 }
+	

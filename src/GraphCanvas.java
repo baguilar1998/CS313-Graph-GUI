@@ -4,12 +4,17 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.PriorityQueue;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GraphCanvas extends JPanel implements MouseListener{
@@ -60,10 +65,6 @@ public class GraphCanvas extends JPanel implements MouseListener{
     	endpt2=v;
     }
     
-    public void setEdge(Edge e) {
-    	edge=e;
-    }
-    
     /*
      * @return the first vertex the user clicked on
      */
@@ -78,9 +79,6 @@ public class GraphCanvas extends JPanel implements MouseListener{
     	return endpt2;
     }
     
-    public Edge getEdge() {
-    	return edge;
-    }
     /*
      * @return whether the user can edit on the canvas
      */
@@ -163,29 +161,42 @@ public class GraphCanvas extends JPanel implements MouseListener{
         
         /**
          * (Remove Vertex)
-         * Removes the chosen vertex from the graph
+         * Removes the chosen vertex from the canvas
          */
+        
         if(radioButtonState.equals("Remove Vertex")) {
-            if(endpt1==null) {
-         	   endpt1=graph.findVertex(e.getPoint());
-         	   try{
-         		  graph.removeVertex(endpt1);
-         	   }catch (NullPointerException ex) {
-         		  this.repaint();
-         		   endpt1=null;
-         		   return;
-         	   }
-         	   this.repaint();
-         	   endpt1=null;
-            }
+        	if(endpt1==null) {
+           	   endpt1=graph.findVertex(e.getPoint());
+           	   try{
+           		   endpt1.setVertexState(Color.GREEN);
+           		   graph.removeVertex(endpt1);
+           		   endpt1=null;
+           		   this.repaint();
+           	   }catch (NullPointerException ex) {
+           		   endpt1=null;
+       			   this.repaint();
+           		   return;
+           	   }
+           	   endpt1=null;
+           	   this.repaint();
+        	}
         }
         
-        /**
+        /*
          * (Remove Edge)
-         * Removes a chosen edge from the graph
+         * Removes the chosen edge from the canvas
          */
         if(radioButtonState.equals("Remove Edge")) {
-        	graph.findEdge(e.getPoint());
+        	try {
+              	edge = graph.findEdge(e.getPoint());
+              	graph.removeEdge(edge);
+              	edge = null;
+              	this.repaint();
+        	}catch(NullPointerException err) {
+        		System.out.println("Didnt click on an edge");
+        	}
+        	edge = null;
+        	this.repaint();
         }
         
         /*
@@ -214,9 +225,10 @@ public class GraphCanvas extends JPanel implements MouseListener{
             	
         }
         
-           
-   
-    }
+        
+        	
+        }
+        
 
 	public void paintComponent(Graphics g){ 
         super.paintComponent(g);
@@ -248,9 +260,11 @@ public class GraphCanvas extends JPanel implements MouseListener{
         		Point to = new Point(e.getEndpt2().getX(),e.getEndpt2().getY());
         		Shape line = new Line2D.Double(from.x, from.y, to.x, to.y);
         		e.setVisualEdge(line);
-        		g2.setColor(e.getEdgeColor());
+          		g2.setColor(e.getEdgeColor());
              	g2.setStroke(new BasicStroke(5));
              	g2.draw(line);
+             	System.out.println(e.getVisualEdge().getBounds2D());
+             	
 
         	}
         }
