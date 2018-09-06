@@ -13,7 +13,7 @@ public class GraphGUI extends JFrame{
 	protected GraphCanvas canvas;
 	protected JTextField weightInput;
 	protected JRadioButton[] buttons; 
-	private JButton addAllEdges,randomWeights,treeSpanning,help;
+	private JButton addAllEdges,connectedComponents,cutVertices,help;
 	private RadioButtonListener rbl;
 	private ButtonListener bl;
 	
@@ -84,13 +84,13 @@ public class GraphGUI extends JFrame{
 		addAllEdges.addActionListener(bl);
 		sideMenu.add(addAllEdges);
 		
-		randomWeights = new JButton("Connected Components");
-		//randomWeights.addActionListener(bl);
-		sideMenu.add(randomWeights);
+		connectedComponents = new JButton("Connected Components");
+		connectedComponents.addActionListener(bl);
+		sideMenu.add(connectedComponents);
 		
-		treeSpanning = new JButton("Show Cut Vertices");
-		//treeSpanning.addActionListener(bl);
-		sideMenu.add(treeSpanning);
+		cutVertices = new JButton("Show Cut Vertices");
+		//cutVertices.addActionListener(bl);
+		sideMenu.add(cutVertices);
 		
 		help = new JButton("Help");
 		//help.addActionListener(bl);
