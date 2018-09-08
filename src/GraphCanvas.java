@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 
 public class GraphCanvas extends JPanel implements MouseListener{
 
-	//Instance Variables of a GraphCanvas
-    private GraphGUI frame;
+	//Instance Variables for Graph Canvas
+	private static final long serialVersionUID = -6768860967750711830L;;
     private static String radioButtonState;
     private static boolean isEnabled; 
-    protected static Graph graph;
+    protected Graph graph;
     private static Vertex endpt1,endpt2;
     private static Edge edge;
 
@@ -26,9 +26,9 @@ public class GraphCanvas extends JPanel implements MouseListener{
      * @param frame the current JFrame the canvas
      * is on
      */
-    public GraphCanvas(GraphGUI frame)
+    public GraphCanvas()
     {
-        this.frame=frame;
+        //this.frame=frame;
         isEnabled = false;
         radioButtonState="";
         graph = new Graph();
@@ -57,20 +57,6 @@ public class GraphCanvas extends JPanel implements MouseListener{
      */
     public void setEndpt2(Vertex v) {
     	endpt2=v;
-    }
-    
-    /*
-     * @return the first vertex the user clicked on
-     */
-    public Vertex getEndpt1() {
-    	return endpt1;
-    }
-    
-    /*
-     * @return the second vertex the user clicked on
-     */
-    public Vertex getEndpt2() {
-    	return endpt2;
     }
     
     /*
@@ -188,6 +174,8 @@ public class GraphCanvas extends JPanel implements MouseListener{
               	this.repaint();
         	}catch(NullPointerException err) {
         		System.out.println("Didnt click on an edge");
+        		edge = null;
+        		return;
         	}
         	edge = null;
         	this.repaint();

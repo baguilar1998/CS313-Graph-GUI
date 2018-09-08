@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 
 public class GraphGUI extends JFrame{
 	
+
+	private static final long serialVersionUID = 2700214065469092253L;
 	private JPanel sideMenu;
 	protected GraphCanvas canvas;
 	protected JTextField weightInput;
@@ -44,7 +46,7 @@ public class GraphGUI extends JFrame{
 		setSideMenu();
 		add(sideMenu);
 
-		canvas = new GraphCanvas(this);
+		canvas = new GraphCanvas();
 		canvas.setAlignmentX(RIGHT_ALIGNMENT);
 		add(canvas);
 
@@ -93,7 +95,7 @@ public class GraphGUI extends JFrame{
 		sideMenu.add(cutVertices);
 		
 		help = new JButton("Help");
-		//help.addActionListener(bl);
+		help.addActionListener(bl);
 		sideMenu.add(help);
 	}
 	

@@ -1,11 +1,9 @@
 import java.awt.Color; 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
-import javax.swing.JOptionPane;
 public class ButtonListener implements ActionListener{
 
 	private GraphGUI gui;
@@ -54,16 +52,21 @@ public class ButtonListener implements ActionListener{
 		 * Displays a prompt on how to use the gui
 		 */
 		if(buttonName.equals("Help")) {
-			//new HelpPrompt();
+			new HelpPrompt();
 		}
 	}
 	
-	
-	public void DFS(Vertex v, HashSet<Vertex> visited, Color c) {
+	/**
+	 * Depth First Search Algorithm to find connected graphs
+	 * @param v starting vertex
+	 * @param visited a list of visited vertices
+	 * @param c color
+	 */
+	private void DFS(Vertex v, HashSet<Vertex> visited, Color c) {
 		visited.add(v);
+		v.setVertexState(c);
 		Iterator<Edge> it = gui.canvas.graph.getVertexEdges(v).iterator();
 		while(it.hasNext()) {
-			System.out.println(it);
 			Edge e = it.next();
 			e.setEdgeColor(c);
 			if(!visited.contains(e.getEndpt2())) {

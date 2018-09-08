@@ -6,6 +6,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
 
+	private static GraphGUI gui;
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
@@ -15,7 +17,7 @@ public class Main {
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 		}
 
-		GraphGUI gui = new GraphGUI();
+		gui = new GraphGUI();
 
 	}
 

@@ -87,6 +87,10 @@ public class Graph {
 		return null;
 	}
 	
+	/**
+	 * Removes a vertex from the graph along with it's edges
+	 * @param v the vertex that the user clicked on
+	 */
 	public void removeVertex(Vertex v) {
 		Iterator<?> it = currentGraph.entrySet().iterator();
 		while(it.hasNext()) {
@@ -101,6 +105,11 @@ public class Graph {
 		removeEdge(v);
 	}
 	
+	/**
+	 * Helper method to move all the edges from a given
+	 * vertex
+	 * @param c a vertex
+	 */
 	private void removeEdge(Vertex c) {
 		for(Vertex v : currentGraph.keySet()) {
 			HashSet<Edge> ee = currentGraph.get(v);
@@ -134,6 +143,11 @@ public class Graph {
 		return false;
 	}
 	
+	/**
+	 * Finds a given edge from the graph
+	 * @param userClick current click
+	 * @return the edge that the user clicked on
+	 */
 	public Edge findEdge(Point userClick) {
 		for(Vertex v: currentGraph.keySet()) {
 			for(Edge e: currentGraph.get(v)) {
@@ -145,6 +159,11 @@ public class Graph {
 		return null;
 	}
 	
+	/**
+	 * Removes an edge from the graph while keeping the
+	 * vertices
+	 * @param e an edge
+	 */
 	public void removeEdge(Edge e) {
 		for(Vertex v: currentGraph.keySet()) {
 			HashSet<Edge> edges = currentGraph.get(v);

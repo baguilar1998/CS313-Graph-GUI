@@ -7,10 +7,7 @@ public class Edge {
 	private Vertex endpt1,endpt2;
 	private Color edgeColor;
 	private Shape visualEdge;
-	private int edgeNumber;
 	
-	//Number of current Edges that have been made
-	private static int numOfEdges=0;
 	
 	/*
 	 * Default Constructor for an Edge
@@ -29,7 +26,6 @@ public class Edge {
 		super();
 		this.endpt1=endpt1;
 		edgeColor=Color.BLUE;
-		edgeNumber = ++numOfEdges;
 	
 	}
 
@@ -43,7 +39,6 @@ public class Edge {
 		this.endpt1=endpt1;
 		this.endpt2=endpt2;
 		edgeColor=Color.BLUE;
-		edgeNumber = ++numOfEdges;
 	}
 
 	/*
@@ -79,16 +74,15 @@ public class Edge {
 		edgeColor=c;
 	}
 	
+	/**
+	 * Sets the edge shape
+	 * @param s a line shape
+	 */
 	public void setVisualEdge(Shape s) {
 		visualEdge = s;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 * 
-	 * String representation of an edge
-	 */
+
 	public String toString() {
 		return "Head: " + endpt1.getVertexID() + " Tail: " + endpt2.getVertexID();
 	}
