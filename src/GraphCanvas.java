@@ -1,20 +1,14 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.PriorityQueue;
-
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GraphCanvas extends JPanel implements MouseListener{
