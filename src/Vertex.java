@@ -41,14 +41,14 @@ public class Vertex {
 	}
 	
 	/*
-	 * @return current x-coordinate
+	 * @return x-coordinate
 	 */
 	public int getX() {
 		return x;
 	}
 	
 	/*
-	 * @return current y-coordinate
+	 * @return y-coordinate
 	 */
 	public int getY() {
 		return y;
@@ -59,21 +59,21 @@ public class Vertex {
 	}
 	
 	/*
-	 * @return vertex number
+	 * @return vertex id
 	 */
 	public int getVertexID() {
 		return vertexID;
 	}
 	
 	/*
-	 * @return the vertex representation on the canvas
+	 * @return the vertex shape 
 	 */
 	public Shape getVisualVertex() {
 		return visualVertex;
 	}
 	
 	/*
-	 * @return the current vertex state
+	 * @return the color of the vertex
 	 */
 	public Color getVertexState() {
 		return vertexState;
@@ -113,11 +113,6 @@ public class Vertex {
 		visualVertex = v;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 * @return string representation of a Vertex
-	 */
 	public String toString() {
 		return "Vertex: "+vertexID;
 	}

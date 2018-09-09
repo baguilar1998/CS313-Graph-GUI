@@ -69,7 +69,7 @@ public class ButtonListener implements ActionListener{
 			}
 			
 			for(Vertex v: cutVertices) {
-				v.setSize(20);
+				v.setSize(22);
 				v.setVertexState(Color.GREEN);
 			}
 			time = 0;
@@ -86,7 +86,7 @@ public class ButtonListener implements ActionListener{
 	
 	/**
 	 * Depth First Search Algorithm to find connected graphs
-	 * @param v starting vertex
+	 * @param v vertex to be next visited
 	 * @param visited a list of visited vertices
 	 * @param c color
 	 */
@@ -103,8 +103,18 @@ public class ButtonListener implements ActionListener{
 		}
 	}
 	
+	/**
+	 * Depth First Search Algorithm to find any cut vertices
+	 * @param v vertex to be visited next
+	 * @param visited a list of all visited vertices
+	 * @param dis discovery time of vertices
+	 * @param low lowest discovery time
+	 * @param parent parent vertices in DFS tree
+	 * @param ap a list of all cut vertices
+	 */
 	private void CutDFS(Vertex v, HashSet<Vertex> visited, HashMap<Vertex,Integer> dis, 
 			HashMap<Vertex,Integer> low, HashMap<Vertex,Vertex> parent, HashSet<Vertex> ap) {
+		
 		int children = 0;
 		visited.add(v);
 		++time;

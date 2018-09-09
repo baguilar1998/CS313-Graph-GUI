@@ -102,7 +102,7 @@ public class Graph {
 			}
 		}
 		
-		removeEdge(v);
+		removeEdges(v);
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class Graph {
 	 * vertex
 	 * @param c a vertex
 	 */
-	private void removeEdge(Vertex c) {
+	private void removeEdges(Vertex c) {
 		for(Vertex v : currentGraph.keySet()) {
 			HashSet<Edge> ee = currentGraph.get(v);
 			Iterator<?> it = ee.iterator();
