@@ -107,7 +107,8 @@ public class ButtonListener implements ActionListener{
 			HashMap<Vertex,Integer> low, HashMap<Vertex,Vertex> parent, HashSet<Vertex> ap) {
 		int children = 0;
 		visited.add(v);
-		dis.put(v,++time);
+		++time;
+		dis.put(v,time);
 		low.put(v, time);
 		
 		Iterator<Edge> it  = gui.canvas.graph.getVertexEdges(v).iterator();
@@ -118,11 +119,11 @@ public class ButtonListener implements ActionListener{
 				parent.put(e.getEndpt2(),v);
 				CutDFS(e.getEndpt2(), visited, dis, low, parent, ap);
 				
-				low.put(e.getEndpt2(), Math.min(low.get(v), low.get(e.getEndpt2())));
+				low.put(v, Math.min(low.get(v), low.get(e.getEndpt2())));
 				
 				if(parent.get(v) == null && children > 1) ap.add(v);
 				
-				if(parent.get(v) !=null && low.get(e.getEndpt2()) >= dis.get(v)) ap.add(v);
+				if(parent.get(v) != null && low.get(e.getEndpt2()) >= dis.get(v)) ap.add(v);
 			}
 			
 			else if (!e.getEndpt2().equals(parent.get(v))) {
