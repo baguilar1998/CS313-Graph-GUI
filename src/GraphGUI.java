@@ -91,7 +91,7 @@ public class GraphGUI extends JFrame{
 		sideMenu.add(connectedComponents);
 		
 		cutVertices = new JButton("Show Cut Vertices");
-		//cutVertices.addActionListener(bl);
+		cutVertices.addActionListener(bl);
 		sideMenu.add(cutVertices);
 		
 		help = new JButton("Help");

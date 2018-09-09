@@ -225,7 +225,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
        * placed on the canvas
        */
        for(Vertex x: allVertexes) {
-           	Shape vertex = new Ellipse2D.Double(x.getX()-5, x.getY()-5, 12, 12);
+           	Shape vertex = new Ellipse2D.Double(x.getX()-5, x.getY()-5, x.getSize(), x.getSize());
         	x.setVisualVertex(vertex);
         	g2.setColor(x.getVertexState());
             g2.fill(vertex);

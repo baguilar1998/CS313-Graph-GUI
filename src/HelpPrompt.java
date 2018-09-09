@@ -46,11 +46,18 @@ public class HelpPrompt extends JFrame{
 				+ "(In order to add an edge, two vertices must be present. Select one vertex "
 				+ "[this vertex will turn green]. Then "
 				+ "select another vertex and it will create an edge)\n\n"
+				+ "Remove Vertex: Removes the chosen vertex\n"
+				+ "(Click on a vertex to remove the vertex from the screen. It will also remove"
+				+ " the following edges that was connected to that vertex)\n\n"
+				+ "Remove Edge: Removes the chosen edge\n"
+				+ "(To remove an edge, double-click on the following edge. It will not remove the vertices"
+				+ " attached to it)\n\n"
 				+ "Move Vertex: Moves the selected vertex\n"
 				+ "(Click on any vertex [this vertex will turn green] and then click anywhere on the screen"
 				+ " to move the vertex)\n\n"
 				+ "Add All Edges: Adds all possible edges with the present vertices (Creates a complete graph)\n\n"
-				+ "Connected Components: Colors in all connected graphs that are present on the screen\n\n");
+				+ "Connected Components: Colors in all connected graphs that are present on the screen\n\n"
+				+ "Show Cut Vertices: Shows all the vertices that could disconnect the graph");
 		add(helpInformation);
 	}
 }

@@ -5,7 +5,7 @@ import java.awt.geom.Ellipse2D;
 public class Vertex {
 	
 	//Instance Variables for a Vertex
-	private int x,y;
+	private int x,y,size;
 	private int vertexID;
 	private Shape visualVertex;
 	private Color vertexState;
@@ -19,7 +19,8 @@ public class Vertex {
 	public Vertex() {
 		x=0;
 		y=0;
-		visualVertex = new Ellipse2D.Double(x, y, 12, 12);
+		size=12;
+		visualVertex = new Ellipse2D.Double(x, y, size, size);
 		vertexState = Color.RED;
 		vertexID = ++vertexNumber;
 	}
@@ -33,7 +34,8 @@ public class Vertex {
 		super();
 		this.x=x;
 		this.y=y;
-		visualVertex = new Ellipse2D.Double(x-5, y-5, 12, 12);
+		size=12;
+		visualVertex = new Ellipse2D.Double(x-5, y-5, size, size);
 		vertexState = Color.RED;
 		vertexID = ++vertexNumber;
 	}
@@ -50,6 +52,10 @@ public class Vertex {
 	 */
 	public int getY() {
 		return y;
+	}
+	
+	public int getSize() {
+		return size;
 	}
 	
 	/*
@@ -85,6 +91,10 @@ public class Vertex {
 	 */
 	public void setY(int y) {
 		this.y=y;
+	}
+	
+	public void setSize(int s) {
+		size=s;
 	}
 	
 	/*
