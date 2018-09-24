@@ -92,6 +92,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
     	 * Adds a vertex to the canvas (displays a red dot)
     	 */
         if(radioButtonState.equals("Add Vertex")) {
+        	reset();
         	Vertex v = new Vertex(x,y);
         	graph.addVertex(v);
         	this.paintComponent(this.getGraphics());
@@ -127,6 +128,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
         	   }
          	   endpt1.setVertexState(Color.RED);
          	   this.repaint();
+         	   reset();
           	   endpt1=null;
           	   endpt2=null;
           	   
@@ -154,6 +156,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
            	   }
            	   endpt1=null;
            	   this.repaint();
+           	reset();
         	}
         }
         
@@ -175,6 +178,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
         	}
         	edge = null;
         	this.repaint();
+        	reset();
         }
         
         /*
@@ -199,6 +203,7 @@ public class GraphCanvas extends JPanel implements MouseListener{
             	endpt1.setVertexState(Color.RED);
             	this.repaint();
             	endpt1=null;
+            	reset();
             }
             	
         }
@@ -241,6 +246,24 @@ public class GraphCanvas extends JPanel implements MouseListener{
         }
         
     }
+	
+	/**
+	 * A function that resets everything back to normal
+	 */
+	private void reset() {
+		for(Vertex v : graph.getAllVertexes()) {
+			if(!v.getVertexState().equals(Color.RED)) {
+				v.setVertexState(Color.RED);
+			}
+			v.setSize(12);
+			HashSet<Edge> edges = graph.getVertexEdges(v);
+			for(Edge ee: edges) {
+				if(!ee.getEdgeColor().equals(Color.BLUE)) {
+					ee.setEdgeColor(Color.BLUE);
+				}
+			}
+		}
+	}
 	
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}

@@ -27,6 +27,7 @@ public class RadioButtonListener implements ActionListener{
 		
 		//Add a vertex
 		if(gui.buttons[0].isSelected()) {
+			reset();
 			disableUnselectedButtons(0);
 			gui.canvas.setRadioButtonState("Add Vertex");
 			gui.canvas.setIsEnabled(true);
@@ -34,24 +35,28 @@ public class RadioButtonListener implements ActionListener{
 		
 		//Add an Edge
 		}else if(gui.buttons[1].isSelected()) {
+			reset();
 			disableUnselectedButtons(1);
 			gui.canvas.setRadioButtonState("Add Edge");
 			gui.canvas.setIsEnabled(true);
 	
 		//Remove Vertex
 		}else if(gui.buttons[2].isSelected()) {
+			reset();
 			disableUnselectedButtons(2);
 			gui.canvas.setRadioButtonState("Remove Vertex");
 			gui.canvas.setIsEnabled(true);
 	
 		//Remove Edge
 		}else if(gui.buttons[3].isSelected()) {
+			reset();
 			disableUnselectedButtons(3);
 			gui.canvas.setRadioButtonState("Remove Edge");
 			gui.canvas.setIsEnabled(true);
 	
 		//Move a vertex
 		}else if(gui.buttons[4].isSelected()) {
+			reset();
 			disableUnselectedButtons(4);
 			gui.canvas.setRadioButtonState("Move Vertex");
 			gui.canvas.setIsEnabled(true);
@@ -61,6 +66,7 @@ public class RadioButtonListener implements ActionListener{
 		* the canvas if any changes have been made
 		*/
 		}else {
+			reset();
 			gui.canvas.setRadioButtonState("");
 			gui.canvas.setIsEnabled(false);
 			for(int i=0;i<gui.buttons.length;++i) {
@@ -97,4 +103,22 @@ public class RadioButtonListener implements ActionListener{
 	}
 
 
+	/**
+	 * A function that resets everything back to normal
+	 */
+	private void reset() {
+		for(Vertex v : gui.canvas.graph.getAllVertexes()) {
+			if(!v.getVertexState().equals(Color.RED)) {
+				v.setVertexState(Color.RED);
+			}
+			v.setSize(12);
+			HashSet<Edge> edges = gui.canvas.graph.getVertexEdges(v);
+			for(Edge ee: edges) {
+				if(!ee.getEdgeColor().equals(Color.BLUE)) {
+					ee.setEdgeColor(Color.BLUE);
+				}
+			}
+		}
+		gui.canvas.repaint();
+	}
 }

@@ -34,6 +34,7 @@ public class ButtonListener implements ActionListener{
 					gui.canvas.graph.addEdge(v,vv);
 				}
 			}
+			reset();
 			gui.canvas.repaint();
 		}
 	
@@ -41,6 +42,7 @@ public class ButtonListener implements ActionListener{
 		 * Colors in all the separate graphs
 		 */
 		if(buttonName.equals("Connected Components")) {
+			reset();
 			HashSet<Vertex> visited = new HashSet<Vertex>();
 			HashSet<Vertex> getAllVertices = gui.canvas.graph.getAllVertexes();
 			for(Vertex v: getAllVertices) {
@@ -57,6 +59,7 @@ public class ButtonListener implements ActionListener{
 		 * disconnect the graph (single)
 		 */
 		if(buttonName.equals("Show Cut Vertices")) {
+			reset();
 			HashSet<Vertex> visited = new HashSet<Vertex>();
 			HashMap<Vertex,Vertex> parent = new HashMap<>();
 			HashMap<Vertex,Integer> dis = new HashMap<>();
@@ -142,6 +145,24 @@ public class ButtonListener implements ActionListener{
 			}
 		}
 		
+	}
+	
+	/**
+	 * A function that resets everything back to normal
+	 */
+	private void reset() {
+		for(Vertex v : gui.canvas.graph.getAllVertexes()) {
+			if(!v.getVertexState().equals(Color.RED)) {
+				v.setVertexState(Color.RED);
+			}
+			v.setSize(12);
+			HashSet<Edge> edges = gui.canvas.graph.getVertexEdges(v);
+			for(Edge ee: edges) {
+				if(!ee.getEdgeColor().equals(Color.BLUE)) {
+					ee.setEdgeColor(Color.BLUE);
+				}
+			}
+		}
 	}
 
 }
