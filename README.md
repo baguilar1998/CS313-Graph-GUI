@@ -25,7 +25,7 @@ In order to run this application, you must have the latest version of Java insta
 * Show the vertices that will create separate connected components if removed from any graph
 
 ## Demo
-<img alt="demo visual" src="https://github.com/baguilar1998/CS313-Graph-GUI.gif"/>
+<img alt="demo visual" src="https://github.com/baguilar1998/CS313-Graph-GUI/demo.gif"/>
 
 ## How To Use
 There is a Help button on the GUI itself that gives you instructions on how to use the application.
